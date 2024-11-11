@@ -1,0 +1,4 @@
+#nullable disable
+
+Netpack.Hosting.NetpackResourceExtensions
+static Netpack.Hosting.NetpackResourceExtensions.ProcessNodes(this System.Collections.Generic.IEnumerable<Netpack.Hosting.Orcestraction.ResourceState> states, System.Func<Netpack.Hosting.Orcestraction.ResourceState, System.Threading.Tasks.Task> processNode) -> System.Threading.Tasks.Task

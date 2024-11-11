@@ -1,0 +1,15 @@
+﻿@using Netpack.GatewayDashboard.Resources
+@namespace Netpack.GatewayDashboard.Components
+@inject IStringLocalizer<ControlsStrings> Loc
+
+<div class="total-items-footer">@((MarkupString)string.Format(Loc[nameof(ControlsStrings.TotalItemsFooterText)], _totalItemCount))</div>
+
+@code {
+    private int _totalItemCount;
+
+    public void SetTotalItemCount(int totalItemCount)
+    {
+        _totalItemCount = totalItemCount;
+        StateHasChanged();
+    }
+}

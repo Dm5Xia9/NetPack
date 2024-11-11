@@ -1,0 +1,10 @@
+﻿@page "/error/404"
+@inject IStringLocalizer<GatewayDashboard.Resources.Routes> Loc
+
+<PageTitle>@Loc[nameof(GatewayDashboard.Resources.Routes.NotFoundPageTitle)]</PageTitle>
+
+<div class="error-stack">
+    <div class="error-code">404</div>
+    <div class="error-description">@Loc[nameof(GatewayDashboard.Resources.Routes.NotFoundDescription)]</div>
+    <div>@Loc[nameof(GatewayDashboard.Resources.Routes.NotFoundDetails)]</div>
+</div>

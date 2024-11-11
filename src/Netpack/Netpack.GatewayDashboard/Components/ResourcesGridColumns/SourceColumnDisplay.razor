@@ -1,0 +1,38 @@
+﻿@using Netpack.GatewayDashboard.Model
+@using Netpack.GatewayDashboard.Resources
+
+@inject IStringLocalizer<Columns> Loc
+@inject IStringLocalizer<Resources> ResourcesLoc
+
+<GridValue Value="@Value"
+            ValueToCopy="@ValueToCopy"
+            ValueDescription="@ResourcesLoc[nameof(Resources.ResourcesSourceColumnHeader)]"
+            EnableHighlighting="true"
+            HighlightText="@FilterText"
+            PreCopyToolTip="@Loc[nameof(Columns.SourceColumnDisplayCopyCommandToClipboard)]"
+            ToolTip="@Tooltip"
+            StopClickPropagation="true">
+    <ContentAfterValue>
+        @if (ContentAfterValue is not null)
+        {
+            <span class="subtext">@ContentAfterValue</span>
+        }
+    </ContentAfterValue>
+</GridValue>
+
+@code {
+    [Parameter, EditorRequired]
+    public required string FilterText { get; set; }
+
+    [Parameter, EditorRequired]
+    public required string Value { get; set; }
+
+    [Parameter]
+    public required string? ContentAfterValue { get; set; }
+
+    [Parameter, EditorRequired]
+    public required string ValueToCopy { get; set; }
+
+    [Parameter, EditorRequired]
+    public required string Tooltip { get; set; }
+}

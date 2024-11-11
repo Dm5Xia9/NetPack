@@ -1,0 +1,52 @@
+﻿@namespace Netpack.GatewayDashboard.Components
+
+@using Netpack.GatewayDashboard.Otlp.Model
+@using Netpack.GatewayDashboard.Resources
+@using Metrics = Netpack.GatewayDashboard.Components.Pages.Metrics
+@inject IStringLocalizer<ControlsStrings> Loc
+
+@if (_instrument is null)
+{
+    <div>@Loc[nameof(ControlsStrings.ChartContainerUnableToDisplay)]</div>
+}
+else
+{
+    <div class="metrics-chart">
+        <div class="metrics-chart-header">
+            <h3>@_instrument.Summary.Name</h3>
+            <p>@_instrument.Summary.Description</p>
+        </div>
+        <FluentTabs ActiveTabId="@($"tab-{ActiveView}")" OnTabChange="@OnTabChangeAsync">
+            <FluentTab LabelClass="tab-label"
+                       Id="@($"tab-{Metrics.MetricViewKind.Graph}")"
+                       aria-label="@Loc[nameof(ControlsStrings.ChartContainerGraphAccessibleLabel)]"
+                       Label="@Loc[nameof(ControlsStrings.ChartContainerGraphTab)]"
+                       Icon="@(new Icons.Regular.Size24.DataArea())">
+                <div class="metrics-chart-container metric-tab">
+                    <PlotlyChart InstrumentViewModel="_instrumentViewModel" Duration="Duration" Applications="Applications"/>
+                    <ChartFilters InstrumentViewModel="_instrumentViewModel" Instrument="_instrument" DimensionFilters="@DimensionFilters" />
+                </div>
+            </FluentTab>
+            <FluentTab LabelClass="tab-label"
+                       Id="@($"tab-{Metrics.MetricViewKind.Table}")"
+                       Label="@Loc[nameof(ControlsStrings.ChartContainerTableTab)]"
+                       Icon="@(new Icons.Regular.Size24.Table())">
+                <div class="metrics-chart-container metric-tab">
+                    <MetricTable InstrumentViewModel="_instrumentViewModel" Duration="Duration" Applications="Applications" />
+                    <ChartFilters InstrumentViewModel="_instrumentViewModel" Instrument="_instrument" DimensionFilters="@DimensionFilters"/>
+                </div>
+            </FluentTab>
+        </FluentTabs>
+    </div>
+}
+
+@code {
+    [Parameter, EditorRequired]
+    public required Metrics.MetricViewKind ActiveView { get; set; }
+
+    [Parameter, EditorRequired]
+    public required Func<Metrics.MetricViewKind, Task> OnViewChangedAsync { get; set; }
+
+    [Parameter]
+    public required List<OtlpApplication> Applications { get; set; }
+}

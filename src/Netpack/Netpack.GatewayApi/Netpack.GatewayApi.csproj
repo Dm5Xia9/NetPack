@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>75719e9d-a798-4f50-958b-24ab94095eb2</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..</DockerfileContext>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+	  <PackageReference Include="Grpc.AspNetCore" Version="2.66.0" />
+
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Netpack.Host\Netpack.Hosting.csproj" />
+  </ItemGroup>
+	<ItemGroup>
+		<Protobuf Include="AspireResources\resource_service.proto" GrpcServices="Server" Access="Internal" />
+	</ItemGroup>
+
+</Project>

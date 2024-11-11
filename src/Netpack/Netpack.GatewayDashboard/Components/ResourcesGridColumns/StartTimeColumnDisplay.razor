@@ -1,0 +1,22 @@
+﻿@using Netpack.GatewayDashboard.Model
+@using Netpack.GatewayDashboard.Resources
+@using System.Globalization
+@using Netpack.GatewayDashboard.Utils
+
+@if (Resource.StartTimeStamp is {} timeStamp)
+{
+    // Don't include milliseconds as resource server returned time stamp is second precision.
+    @FormatHelpers.FormatTimeWithOptionalDate(TimeProvider, timeStamp)
+}
+else
+{
+    <span class="empty-data"></span>
+}
+
+@code {
+    [Inject]
+    public required BrowserTimeProvider TimeProvider { get; init; }
+
+    [Parameter, EditorRequired]
+    public required ResourceViewModel Resource { get; set; }
+}

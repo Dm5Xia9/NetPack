@@ -1,0 +1,220 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+	  <GarbageCollectionAdaptationMode>1</GarbageCollectionAdaptationMode>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>277546ed-2b57-4497-9d42-feef55b8d800</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..</DockerfileContext>
+	  <NoWarn>$(NoWarn);CS1591;CS8002</NoWarn>
+	  <DefineConstants>ASPIRE_DASHBOARD</DefineConstants>
+  </PropertyGroup>
+	<ItemGroup>
+		<!-- Build service and client types. Integration tests use the client types to call OTLP services. -->
+		<Protobuf Include="Otlp\**\*.proto">
+			<ProtoRoot>Otlp</ProtoRoot>
+		</Protobuf>
+
+		<Protobuf Include="resource_service.proto">
+			<Access>Internal</Access>
+			<Link>ResourceService\resource_service.proto</Link>
+		</Protobuf>
+	</ItemGroup>
+
+	<ItemGroup>
+    <PackageReference Include="Grpc.AspNetCore" />
+    <PackageReference Include="Humanizer.Core" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Certificate"  />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" />
+    <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" />
+    <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<Using Include="Netpack.GatewayDashboard.Components.Resize" />
+		<Using Include="Netpack.GatewayDashboard.Model.BrowserStorage" />
+	</ItemGroup>
+	<ItemGroup>
+		<Compile Update="Resources\ControlsStrings.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>ControlsStrings.resx</DependentUpon>
+		</Compile>
+		<Compile Update="Resources\ConsoleLogs.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>ConsoleLogs.resx</DependentUpon>
+		</Compile>
+		<Compile Update="Resources\Dialogs.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Dialogs.resx</DependentUpon>
+		</Compile>
+		<Compile Update="Resources\Layout.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Layout.resx</DependentUpon>
+		</Compile>
+		<Compile Update="Resources\Columns.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Columns.resx</DependentUpon>
+		</Compile>
+		<Compile Update="Resources\Metrics.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Metrics.resx</DependentUpon>
+		</Compile>
+		<Compile Update="Resources\Resources.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Resources.resx</DependentUpon>
+		</Compile>
+		<Compile Update="Resources\Login.Designer.cs">
+			<DependentUpon>Login.resx</DependentUpon>
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+		</Compile>
+		<Compile Update="Resources\StructuredLogs.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>StructuredLogs.resx</DependentUpon>
+		</Compile>
+		<Compile Update="Resources\TraceDetail.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>TraceDetail.resx</DependentUpon>
+		</Compile>
+		<Compile Update="Resources\Traces.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Traces.resx</DependentUpon>
+		</Compile>
+		<Compile Update="Resources\Routes.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Routes.resx</DependentUpon>
+		</Compile>
+		<Compile Update="Resources\StructuredFiltering.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>StructuredFiltering.resx</DependentUpon>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Update="Resources\ControlsStrings.resx">
+			<XlfSourceFormat>Resx</XlfSourceFormat>
+			<XlfOutputItem>EmbeddedResource</XlfOutputItem>
+			<SubType>Designer</SubType>
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>ControlsStrings.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Resources\ConsoleLogs.resx">
+			<XlfSourceFormat>Resx</XlfSourceFormat>
+			<XlfOutputItem>EmbeddedResource</XlfOutputItem>
+			<SubType>Designer</SubType>
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>ConsoleLogs.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Resources\Dialogs.resx">
+			<XlfSourceFormat>Resx</XlfSourceFormat>
+			<XlfOutputItem>EmbeddedResource</XlfOutputItem>
+			<SubType>Designer</SubType>
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>Dialogs.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Resources\Layout.resx">
+			<XlfSourceFormat>Resx</XlfSourceFormat>
+			<XlfOutputItem>EmbeddedResource</XlfOutputItem>
+			<SubType>Designer</SubType>
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>Layout.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Resources\Columns.resx">
+			<XlfSourceFormat>Resx</XlfSourceFormat>
+			<XlfOutputItem>EmbeddedResource</XlfOutputItem>
+			<SubType>Designer</SubType>
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>Columns.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Resources\Metrics.resx">
+			<XlfSourceFormat>Resx</XlfSourceFormat>
+			<XlfOutputItem>EmbeddedResource</XlfOutputItem>
+			<SubType>Designer</SubType>
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>Metrics.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Resources\Resources.resx">
+			<XlfSourceFormat>Resx</XlfSourceFormat>
+			<XlfOutputItem>EmbeddedResource</XlfOutputItem>
+			<SubType>Designer</SubType>
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Resources\Login.resx">
+			<XlfOutputItem>EmbeddedResource</XlfOutputItem>
+			<SubType>Designer</SubType>
+			<LastGenOutput>Login.Designer.cs</LastGenOutput>
+			<XlfSourceFormat>Resx</XlfSourceFormat>
+			<Generator>PublicResXFileCodeGenerator</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Resources\StructuredLogs.resx">
+			<XlfSourceFormat>Resx</XlfSourceFormat>
+			<XlfOutputItem>EmbeddedResource</XlfOutputItem>
+			<SubType>Designer</SubType>
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>StructuredLogs.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Resources\TraceDetail.resx">
+			<XlfSourceFormat>Resx</XlfSourceFormat>
+			<XlfOutputItem>EmbeddedResource</XlfOutputItem>
+			<SubType>Designer</SubType>
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>TraceDetail.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Resources\Traces.resx">
+			<XlfSourceFormat>Resx</XlfSourceFormat>
+			<XlfOutputItem>EmbeddedResource</XlfOutputItem>
+			<SubType>Designer</SubType>
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>Traces.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Resources\Routes.resx">
+			<XlfSourceFormat>Resx</XlfSourceFormat>
+			<XlfOutputItem>EmbeddedResource</XlfOutputItem>
+			<SubType>Designer</SubType>
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>Routes.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Resources\StructuredFiltering.resx">
+			<XlfSourceFormat>Resx</XlfSourceFormat>
+			<XlfOutputItem>EmbeddedResource</XlfOutputItem>
+			<SubType>Designer</SubType>
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>StructuredFiltering.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+	</ItemGroup>
+	<ItemGroup>
+		<Compile Include="../Shared/ChannelExtensions.cs" Link="Extensions\ChannelExtensions.cs" />
+		<Compile Include="../Shared/CompareHelpers.cs" Link="Utils\CompareHelpers.cs" />
+		<Compile Include="../Shared/IConfigurationExtensions.cs" Link="Utils\IConfigurationExtensions.cs" />
+		<Compile Include="../Shared/KnownResourceNames.cs" Link="Utils\KnownResourceNames.cs" />
+		<Compile Include="../Shared/KnownFormats.cs" Link="Utils\KnownFormats.cs" />
+		<Compile Include="../Shared/StringComparers.cs" Link="Utils\StringComparers.cs" />
+		<Compile Include="../Shared/TaskHelpers.cs" Link="Utils\TaskHelpers.cs" />
+		<Compile Include="../Shared/Model\KnownProperties.cs" Link="Utils\KnownProperties.cs" />
+		<Compile Include="../Shared/Model\KnownResourceTypes.cs" Link="Utils\KnownResourceTypes.cs" />
+		<Compile Include="../Shared/CircularBuffer.cs" Link="Otlp\Storage\CircularBuffer.cs" />
+		<Compile Include="../Shared/DashboardConfigNames.cs" Link="Utils\DashboardConfigNames.cs" />
+		<Compile Include="../Shared/TokenGenerator.cs" Link="Utils\TokenGenerator.cs" />
+		<Compile Include="../Shared/LoggingHelpers.cs" Link="Utils\LoggingHelpers.cs" />
+		<Compile Include="../Shared/StringUtils.cs" Link="Utils\StringUtils.cs" />
+		<Compile Include="../Shared/ConsoleLogs\LogEntries.cs" Link="Utils\ConsoleLogs\LogEntries.cs" />
+		<Compile Include="../Shared/ConsoleLogs\LogEntry.cs" Link="Utils\ConsoleLogs\LogEntry.cs" />
+		<Compile Include="../Shared/ConsoleLogs\TimestampParser.cs" Link="Utils\ConsoleLogs\TimestampParser.cs" />
+	</ItemGroup>
+</Project>
